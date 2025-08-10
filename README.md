@@ -35,21 +35,41 @@ Sistema de formulários dinâmicos desenvolvido com Laravel 12 e Filament 3.
 
 4. **Configure o ambiente**
    ```bash
+   # Copie o arquivo de ambiente
    cp .env.example .env
+   
+   # Gere a chave da aplicação
+   php artisan key:generate
    ```
 
 5. **Configure o banco de dados**
    - Edite o arquivo `.env` e configure as variáveis de banco de dados
+   - Para SQLite: `DB_CONNECTION=sqlite` e `DB_DATABASE=database/database.sqlite`
+   - Para MySQL: Configure `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME` e `DB_PASSWORD`
 
 6. **Execute as migrações**
    ```bash
+   # Para SQLite (cria o arquivo do banco se não existir)
+   touch database/database.sqlite
+   php artisan migrate
+   
+   # Para MySQL (apenas execute as migrações)
    php artisan migrate
    ```
 
-7. **Rode o projeto**
-  ```bash
+7. **Rode o seed do projeto**
+   ```bash
+   php artisan db:seed
+   ```
+
+8. **Rode o projeto**
+   ```bash
    php artisan serve
    ```
+
+9. **Acesse o sistema**
+   - **Painel Administrativo:** http://127.0.0.1:8000/admin
+   - **Página de Resposta:** http://127.0.0.1:8000/responder
 
 ## Comandos Disponíveis
 
