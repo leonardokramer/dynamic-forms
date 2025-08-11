@@ -126,10 +126,17 @@ class SubmissionViewer extends Component implements HasForms
 
     protected function getMultipleChoiceComponent($response, $label)
     {
-        $alternatives = $response->alternativeResponses
-            ->sortBy('alternative_order')
-            ->pluck('alternative_text', 'id')
-            ->toArray();
+        $alternatives = [];
+        
+        foreach ($response->alternativeResponses->sortBy('alternative_order') as $alternative) {
+            $text = $alternative->alternative_text;
+            
+            if ($alternative->alternative_is_correct) {
+                $text = "{$text} ✓";
+            }
+            
+            $alternatives[$alternative->id] = $text;
+        }
         
         if (empty($alternatives)) {
             return TextInput::make((string) $response->id)
